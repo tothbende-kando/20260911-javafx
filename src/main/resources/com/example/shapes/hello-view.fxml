@@ -30,18 +30,18 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <RadioButton mnemonicParsing="false" text="Piros">
+                        <RadioButton fx:id="redButton" mnemonicParsing="false" onAction="#onRedButtonClick" text="Piros">
                      <toggleGroup>
                         <ToggleGroup fx:id="colorgroup" />
                      </toggleGroup></RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Zöld" toggleGroup="$colorgroup" GridPane.rowIndex="1" />
-                        <RadioButton mnemonicParsing="false" text="Kék" toggleGroup="$colorgroup" GridPane.rowIndex="2" />
-                        <RadioButton mnemonicParsing="false" text="Négyzet" GridPane.columnIndex="1">
+                        <RadioButton fx:id="greenButton" mnemonicParsing="false" onAction="#onGreenButtonClick" text="Zöld" toggleGroup="$colorgroup" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="blueButton" mnemonicParsing="false" onAction="#onBlueButtonClick" text="Kék" toggleGroup="$colorgroup" GridPane.rowIndex="2" />
+                        <RadioButton fx:id="squareButton" mnemonicParsing="false" onAction="#onSquareButtonClick" text="Négyzet" GridPane.columnIndex="1">
                      <toggleGroup>
                         <ToggleGroup fx:id="shapegroup" />
                      </toggleGroup></RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Kör" toggleGroup="$shapegroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <RadioButton mnemonicParsing="false" text="Háromszög" toggleGroup="$shapegroup" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <RadioButton fx:id="circleButton" mnemonicParsing="false" onAction="#onCircleButtonClick" text="Kör" toggleGroup="$shapegroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="triangleButton" mnemonicParsing="false" onAction="#onTriangleButtonClick" text="Háromszög" toggleGroup="$shapegroup" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -54,7 +54,7 @@
                         <Pane>
                            <children>
                               <Label fx:id="bgcolorlabel" minHeight="96.0" minWidth="96.0" />
-                              <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="shapeImage" fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
                      </children>
@@ -67,7 +67,7 @@
             <children>
                 <HBox alignment="CENTER" prefWidth="200.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Hozzáad">
+                        <Button mnemonicParsing="false" onAction="#onAddButtonClick" text="Hozzáad">
                             <HBox.margin>
                                 <Insets right="20.0" />
                             </HBox.margin>
@@ -79,7 +79,7 @@
                         </ImageView>
                      </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" text="Töröl">
+                        <Button mnemonicParsing="false" onAction="#onRemoveButtonClick" text="Töröl">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
@@ -93,8 +93,8 @@
                         </Button>
                     </children>
                 </HBox>
-                <ListView prefHeight="200.0" prefWidth="200.0" />
-                <Button mnemonicParsing="false" text="Mentés">
+                <ListView fx:id="shapes" prefHeight="200.0" prefWidth="200.0" />
+                <Button mnemonicParsing="false" onAction="#onSaveButtonClick" text="Mentés">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
