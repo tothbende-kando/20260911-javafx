@@ -53,14 +53,13 @@ public class ShapeController {
     private RadioButton triangleButton;
 
 
-
     Color color = Color.UNINITIALIZED;
     Shape shape = Shape.UNINITIALIZED;
     String[] content = new String[0];
 
 
     public void initialize() {
-        shapes.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> select_preview());
+        if (!ApplicationTest.isRunningTest) shapes.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> select_preview());
 
         if (!Files.exists(Path.of("alakzat.dat"))) {
             System.out.println("Nincs");
@@ -72,8 +71,8 @@ public class ShapeController {
             throw new RuntimeException(e);
         }
 
-        shapes.setItems(FXCollections.observableArrayList(content));
-        shapes.getSelectionModel().select(0);
+        if (!ApplicationTest.isRunningTest) shapes.setItems(FXCollections.observableArrayList(content));
+        if (!ApplicationTest.isRunningTest) shapes.getSelectionModel().select(0);
         select_preview();
     }
 
@@ -138,28 +137,23 @@ public class ShapeController {
         if (new_content.contains("semmilyen")) return;
 
         add_to_content(new_content);
-        shapes.setItems(FXCollections.observableArrayList(content));
-        shapes.getSelectionModel().select(content.length - 1);
+        if (!ApplicationTest.isRunningTest) shapes.setItems(FXCollections.observableArrayList(content));
+        if (!ApplicationTest.isRunningTest) shapes.getSelectionModel().select(content.length - 1);
         update_preview();
     }
 
     @FXML
     protected void onRemoveButtonClick() {
-        int selected = shapes.getSelectionModel().getSelectedIndex();
+        int selected = ApplicationTest.isRunningTest ? ApplicationTest.fake_select : shapes.getSelectionModel().getSelectedIndex();
         if (selected >= 0) remove_from_content(selected);
-        shapes.setItems(FXCollections.observableArrayList(content));
-        if (content.length > 0) shapes.getSelectionModel().select(
-                Math.min(
-                    selected < 0 ? content.length - 1 : selected,
-                    content.length - 1
-                )
-        );
+        if (!ApplicationTest.isRunningTest) shapes.setItems(FXCollections.observableArrayList(content));
+        if (!ApplicationTest.isRunningTest && content.length > 0) shapes.getSelectionModel().select(Math.min(selected < 0 ? content.length - 1 : selected, content.length - 1));
     }
 
     @FXML
     protected void onSaveButtonClick() {
         try {
-            FileWriter writer = new FileWriter("alakzat.dat");
+            FileWriter writer = new FileWriter( ApplicationTest.isRunningTest ? "test.dat" : "alakzat.dat");
             writer.write("");
 
             for (String line : content) {
@@ -175,19 +169,18 @@ public class ShapeController {
 
 
     private void select_preview() {
-        int selected = shapes.getSelectionModel().getSelectedIndex();
+        int selected = ApplicationTest.isRunningTest ? ApplicationTest.fake_select : shapes.getSelectionModel().getSelectedIndex();
 
         // Worst code I've ever written
         if (selected < 0) {
             color = Color.UNINITIALIZED;
             shape = Shape.UNINITIALIZED;
-            redButton.setSelected(false);
-            greenButton.setSelected(false);
-            blueButton.setSelected(false);
-            squareButton.setSelected(false);
-            circleButton.setSelected(false);
-            triangleButton.setSelected(false);
-
+            if (!ApplicationTest.isRunningTest) redButton.setSelected(false);
+            if (!ApplicationTest.isRunningTest) greenButton.setSelected(false);
+            if (!ApplicationTest.isRunningTest) blueButton.setSelected(false);
+            if (!ApplicationTest.isRunningTest) squareButton.setSelected(false);
+            if (!ApplicationTest.isRunningTest) circleButton.setSelected(false);
+            if (!ApplicationTest.isRunningTest) triangleButton.setSelected(false);
         }
         else {
             if (content[selected].contains("Piros")) color = Color.RED;
@@ -205,18 +198,18 @@ public class ShapeController {
 
     private void update_preview() {
         if (color == Color.UNINITIALIZED || shape == Shape.UNINITIALIZED) {
-            bgcolorlabel.setStyle("");
-            shapeImage.setImage(null);
+            if (!ApplicationTest.isRunningTest) bgcolorlabel.setStyle("");
+            if (!ApplicationTest.isRunningTest) shapeImage.setImage(null);
             return;
         };
 
-        bgcolorlabel.setStyle("-fx-background-color: #%s; -fx-border-color: black;".formatted(switch (color) {
+        if (!ApplicationTest.isRunningTest) bgcolorlabel.setStyle("-fx-background-color: #%s; -fx-border-color: black;".formatted(switch (color) {
             case RED -> "ff0000";
             case GREEN -> "00ff00";
             case BLUE -> "0000ff";
             case UNINITIALIZED -> null; // IF YOU CAN CLEARLY SEE THIS IS UNREACHABLE THEN WHY DO YOU GIVE ME A FUCKING ERROR THAT THE SWITCH DOESN'T COVER ALL POSSIBILITIES YOU FUCKER
         }));
-        shapeImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("%s.png".formatted(switch (shape) {
+        if (!ApplicationTest.isRunningTest) shapeImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("%s.png".formatted(switch (shape) {
             case SQUARE -> "negyzet";
             case CIRCLE -> "kor";
             case TRIANGLE -> "haromszog";
