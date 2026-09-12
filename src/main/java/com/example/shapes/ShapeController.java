@@ -104,9 +104,10 @@ public class ShapeController {
 
     @FXML
     protected void onRemoveButtonClick() {
-        remove_from_content(shapes.getSelectionModel().getSelectedIndex());
+        int selected = shapes.getSelectionModel().getSelectedIndex();
+        if (selected >= 0) remove_from_content(selected);
         shapes.setItems(FXCollections.observableArrayList(content));
-        if (content.length > 0) shapes.getSelectionModel().select(content.length - 1);
+        if (content.length > 0) shapes.getSelectionModel().select(Math.min(selected < 0 ? content.length - 1 : selected, content.length - 1));
     }
 
     @FXML
