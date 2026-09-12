@@ -7,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -109,7 +110,19 @@ public class ShapeController {
 
     @FXML
     protected void onSaveButtonClick() {
+        try {
+            FileWriter writer = new FileWriter("alakzat.dat");
+            writer.write("");
 
+            for (String line : content) {
+                writer.append(line);
+                writer.append(";");
+            }
+
+            writer.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
