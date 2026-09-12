@@ -30,18 +30,18 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <RadioButton mnemonicParsing="false" onAction="#onRedButtonClick" text="Piros">
+                        <RadioButton fx:id="redButton" mnemonicParsing="false" onAction="#onRedButtonClick" text="Piros">
                      <toggleGroup>
                         <ToggleGroup fx:id="colorgroup" />
                      </toggleGroup></RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#onGreenButtonClick" text="Zöld" toggleGroup="$colorgroup" GridPane.rowIndex="1" />
-                        <RadioButton mnemonicParsing="false" onAction="#onBlueButtonClick" text="Kék" toggleGroup="$colorgroup" GridPane.rowIndex="2" />
-                        <RadioButton mnemonicParsing="false" onAction="#onSquareButtonClick" text="Négyzet" GridPane.columnIndex="1">
+                        <RadioButton fx:id="greenButton" mnemonicParsing="false" onAction="#onGreenButtonClick" text="Zöld" toggleGroup="$colorgroup" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="blueButton" mnemonicParsing="false" onAction="#onBlueButtonClick" text="Kék" toggleGroup="$colorgroup" GridPane.rowIndex="2" />
+                        <RadioButton fx:id="squareButton" mnemonicParsing="false" onAction="#onSquareButtonClick" text="Négyzet" GridPane.columnIndex="1">
                      <toggleGroup>
                         <ToggleGroup fx:id="shapegroup" />
                      </toggleGroup></RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#onCircleButtonClick" text="Kör" toggleGroup="$shapegroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <RadioButton mnemonicParsing="false" onAction="#onTriangleButtonClick" text="Háromszög" toggleGroup="$shapegroup" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <RadioButton fx:id="circleButton" mnemonicParsing="false" onAction="#onCircleButtonClick" text="Kör" toggleGroup="$shapegroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="triangleButton" mnemonicParsing="false" onAction="#onTriangleButtonClick" text="Háromszög" toggleGroup="$shapegroup" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
